@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "westeurope"
+        },
+        "rgName": {
+            "value": "cka-lab"
+        },
+        "key_vault_name": {
+            "value": "cka-lab-kv1"
+        },
+        "VNetName": {
+            "value": "cka-lab-VNet"
+        },
+        "SubNetName":{
+            "value": "cka-lab-Subnet"
+        },
+        // object id of the user who will have acccess to the key vault
+        "objid": {
+            "value": ""
+        },
+        "vmSize": {
+            "value": "Standard_B2ms"
+        }
+    }
+}

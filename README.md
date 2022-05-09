@@ -9,6 +9,7 @@ All servers are connected to the same vNet. The admin password for the VM's are 
 ## Using the lab
 
 You will need to change the parameters in the `main.parameters.json` file to match your environment.
+
 ### Setup
 
 To set up the lab, you need to run the following commands:

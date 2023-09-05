@@ -58,7 +58,7 @@ module server1 'modules/servers/servers.bicep' = {
     NICName: 'cp-nic'
     OSDiskName: 'cp-osdisk'
     PublicIPAddressName: 'cp-publicip'
-    SubNetName: 'cka-Lab-Subnet'
+    SubNetName: SubNetName
     VMName: 'cp-vm'
     VNetId: vNetwork.outputs.VNetId
     vmSize: vmSize
@@ -74,7 +74,7 @@ module server2 'modules/servers/servers.bicep' = {
     NICName: 'wn1-nic'
     OSDiskName: 'wn1-osdisk'
     PublicIPAddressName: 'wn1-publicip'
-    SubNetName: 'cka-Lab-Subnet'
+    SubNetName: SubNetName
     VMName: 'wn1-vm'
     VNetId: vNetwork.outputs.VNetId
     vmSize: vmSize
@@ -90,7 +90,7 @@ module server3 'modules/servers/servers.bicep' = {
     NICName: 'wn2-nic'
     OSDiskName: 'wn2-osdisk'
     PublicIPAddressName: 'wn2-publicip'
-    SubNetName: 'cka-Lab-Subnet'
+    SubNetName: SubNetName
     VMName: 'wn2-vm'
     VNetId: vNetwork.outputs.VNetId
     vmSize: vmSize

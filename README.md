@@ -99,4 +99,16 @@ sudo kubeadm join (get the join command from the control plane node)
 remember to run the command with sudo
 ```
 
+## Troubleshooting
 
+If you encounter issues during setup, check the following:
+
+- Ensure all VMs are in the same vNet and can communicate with each other
+- Verify that the required ports are open for Kubernetes communication
+- Check the Azure resource group for any deployment errors
+
+For more help, consult the [Kubernetes documentation](https://kubernetes.io/docs/setup/).
+
+## Keeping Up-to-Date
+
+Kubernetes versions in the CKA exam may change. Always check the latest exam requirements and update the versions in this setup accordingly.

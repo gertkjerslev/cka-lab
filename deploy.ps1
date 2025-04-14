@@ -5,17 +5,21 @@ param (
     [string]$TenantId,
 
     [Parameter(Mandatory = $true)]
-    [string]$subscriptionId,
+    [string]$SubscriptionId,
 
     [Parameter(Mandatory = $false)]
-    [string]$DeploymentRegion = "westeurope"
+    [string]$DeploymentRegion = "westeurope",
+
+    [Parameter(Mandatory = $false)]
+    [string]$ParameterFileName = "main.parameters.json"
+
 )
 
 # Set Az Context
 Write-Verbose "Setting Azure Context to subscription: $subscriptionId in tenant: $tenantId"
 Set-AzContext -Tenant $TenantId -Subscription $SubscriptionId -ErrorAction "Stop" | Out-Null
 $TemplateFileName = "main.bicep"
-$ParameterFileName = "main.parameters.json"
+
 
 # Deploying
 Write-Verbose "Deploying CKA lab"

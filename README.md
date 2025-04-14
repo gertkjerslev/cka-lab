@@ -15,7 +15,7 @@ You will need to change the parameters in the `main.parameters.json` file to mat
 To set up the lab, you need to run the following commands:
 
 ```PowerShell
-.\deploy.ps1 -TenantId <YOUR-TANANTID> -subscriptionId <YOUR-SUBSCRIPTIONID>
+.\deploy.ps1 -TenantId <YOUR-TANANTID> -SubscriptionId <YOUR-SUBSCRIPTIONID>
 ```
 
 Note: You will need to be logged in to Azure with the appropriate permissions.

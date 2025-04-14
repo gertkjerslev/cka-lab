@@ -2,7 +2,7 @@ param location string
 param key_vault_name string
 param objid string
 
-resource key_vault 'Microsoft.KeyVault/vaults@2021-06-01-preview' = {
+resource key_vault 'Microsoft.KeyVault/vaults@2024-12-01-preview' = {
   name: key_vault_name
   location: location
   tags: {

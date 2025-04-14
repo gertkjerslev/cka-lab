@@ -9,7 +9,7 @@ param PublicIPAddressName string
 @secure()
 param adminPassword string
 
-resource VM_PublicIP 'Microsoft.Network/publicIPAddresses@2021-02-01' ={
+resource VM_PublicIP 'Microsoft.Network/publicIPAddresses@2024-05-01' ={
   name:PublicIPAddressName
   location: Location
   sku: {
@@ -22,7 +22,7 @@ resource VM_PublicIP 'Microsoft.Network/publicIPAddresses@2021-02-01' ={
   }
 }
 
-resource NIC_VM 'Microsoft.Network/networkInterfaces@2020-08-01' = {
+resource NIC_VM 'Microsoft.Network/networkInterfaces@2024-05-01' = {
   name: NICName
   location: Location
   properties: {
@@ -50,7 +50,7 @@ resource NIC_VM 'Microsoft.Network/networkInterfaces@2020-08-01' = {
   }
 }
 
-resource VirtualMachine 'Microsoft.Compute/virtualMachines@2021-03-01' = {
+resource VirtualMachine 'Microsoft.Compute/virtualMachines@2024-11-01' = {
   name: VMName
   location: Location
   properties:{

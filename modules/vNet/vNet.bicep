@@ -2,7 +2,7 @@ param VNetName string
 param Location string
 param SubNetName string
 
-resource VNet_Default 'Microsoft.Network/virtualNetworks@2020-08-01' = {
+resource VNet_Default 'Microsoft.Network/virtualNetworks@2024-05-01' = {
   name: VNetName
   location: Location
   properties: {

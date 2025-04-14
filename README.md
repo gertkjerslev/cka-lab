@@ -2,7 +2,7 @@
 
 This repository contains the code for setting up a Lab quickly for the Certified Kubernetes exam. Its purpose is to help candidates who are stuttering for the Certified Kubernetes exam to get a lab environment up and running quickly.
 
-This deployment sets up a CKA-Lab environment. The lab consists of 3 virtual machines (nodes): 1 control plane and 2 worker nodes. All servers are running Ubuntu 20.04 LTS which is the version used for the CKA exam as of May 2022.
+This deployment sets up a CKA-Lab environment. The lab consists of 3 virtual machines (nodes): 1 control plane and 2 worker nodes. All servers are running Ubuntu 20.04 LTS which is the version used for the CKA exam as of May 2025.
 
 All servers are connected to the same vNet. The admin password for the VMs are stored in the deployed secrets.
 
@@ -58,14 +58,14 @@ deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 
 sudo apt-get update
-sudo apt-get install -y kubelet=1.27.0-00 kubeadm=1.27.0-00 kubectl=1.27.0-00
+sudo apt-get install -y kubelet=1.32.0-00 kubeadm=1.32.0-00 kubectl=1.32.0-00
 
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 ### Only on the control plane node
 
 ```bash
-sudo kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=1.27.0
+sudo kubeadm init --pod-network-cidr=192.168.0.0/16 --kubernetes-version=1.32.0
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config

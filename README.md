@@ -58,8 +58,7 @@ deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 
 sudo apt-get update
-sudo apt-get install -y kubelet=1.32.0-00 kubeadm=1.32.0-00 kubectl=1.32.0-00
-
+sudo apt-get install -y kubelet=1.32/* kubeadm=1.32/* kubectl=1.32/*
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 ### Only on the control plane node

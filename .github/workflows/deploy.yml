@@ -33,8 +33,19 @@ jobs:
 
     - name: Log in to Azure PowerShell
       shell: pwsh
+      env:
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       run: |
-        Connect-AzAccount -ServicePrincipal -TenantId $env:AZURE_TENANT_ID -Credential (New-Object PSCredential($env:AZURE_CLIENT_ID, (ConvertTo-SecureString $env:AZURE_CLIENT_SECRET -AsPlainText -Force)))
+        if ($env:AZURE_CLIENT_ID -eq $null -or $env:AZURE_CLIENT_SECRET -eq $null -or $env:AZURE_TENANT_ID -eq $null) {
+          Write-Error "Environment variables are missing"
+          exit 1
+        }
+        $securePassword = ConvertTo-SecureString $env:AZURE_CLIENT_SECRET -AsPlainText -Force
+        $credential = New-Object PSCredential($env:AZURE_CLIENT_ID, $securePassword)
+        Connect-AzAccount -ServicePrincipal -TenantId $env:AZURE_TENANT_ID -Credential $credential
         Set-AzContext -TenantId $env:AZURE_TENANT_ID -SubscriptionId $env:AZURE_SUBSCRIPTION_ID
 
     - name: Run deploy script
@@ -44,5 +55,6 @@ jobs:
       env:
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
 
 

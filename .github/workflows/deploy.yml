@@ -14,11 +14,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up PowerShell
-      uses: azure/powershell@v1
-      with:
-        azPSVersion: "latest"
-
     - name: Log in to Azure
       env:
         AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -35,3 +30,4 @@ jobs:
       env:
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+

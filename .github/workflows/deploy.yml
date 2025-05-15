@@ -44,21 +44,9 @@ jobs:
         Connect-AzAccount -ServicePrincipal -TenantId $env:AZURE_TENANT_ID -Credential $credential
         Set-AzContext -TenantId $env:AZURE_TENANT_ID -SubscriptionId $env:AZURE_SUBSCRIPTION_ID
 
-    - name: Generate Object ID
-      id: objectid
-      shell: pwsh
-      env:
-        AZURE_USER_EMAIL: ${{ secrets.AZURE_USER_EMAIL }}
+    - name: Set Object ID from Secret
       run: |
-        # Retrieve the Object ID securely
-        $objectId = az ad user show --id $env:AZURE_USER_EMAIL --query objectId --output tsv
-        
-        if (-not $objectId) {
-          Write-Error "Failed to retrieve Object ID for $env:AZURE_USER_EMAIL"
-          exit 1
-        }
-
-        echo "OBJID=$objectId" >> $GITHUB_ENV
+        echo "OBJID=${{ secrets.AZURE_OBJECT_ID }}" >> $GITHUB_ENV
 
     - name: Deploy Bicep Template
       shell: pwsh

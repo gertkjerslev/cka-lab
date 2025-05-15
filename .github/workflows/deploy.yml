@@ -55,4 +55,10 @@ jobs:
         AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         OBJID: ${{ env.OBJID }}
       run: |
-        New-AzDeployment -Location "westeurope" -TemplateFile "./main.bicep" -TemplateParameterFile "./main.parameters.json" -Name "MyDeployment" -parameters objid=$env:OBJID
+        New-AzDeployment -Location "westeurope" `
+          -TemplateFile "./main.bicep" `
+          -TemplateParameterFile "./main.parameters.json" `
+          -Name "MyDeployment" `
+          -TemplateParameterObject @{
+              objid = $env:OBJID
+          }

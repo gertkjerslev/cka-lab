@@ -39,22 +39,32 @@ jobs:
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       run: |
-        if ($env:AZURE_CLIENT_ID -eq $null -or $env:AZURE_CLIENT_SECRET -eq $null -or $env:AZURE_TENANT_ID -eq $null) {
-          Write-Error "Environment variables are missing"
-          exit 1
-        }
         $securePassword = ConvertTo-SecureString $env:AZURE_CLIENT_SECRET -AsPlainText -Force
         $credential = New-Object PSCredential($env:AZURE_CLIENT_ID, $securePassword)
         Connect-AzAccount -ServicePrincipal -TenantId $env:AZURE_TENANT_ID -Credential $credential
         Set-AzContext -TenantId $env:AZURE_TENANT_ID -SubscriptionId $env:AZURE_SUBSCRIPTION_ID
 
-    - name: Run deploy script
+    - name: Generate Object ID
+      id: objectid
       shell: pwsh
+      env:
+        AZURE_USER_EMAIL: ${{ secrets.AZURE_USER_EMAIL }}
       run: |
-        pwsh ./deploy.ps1 -TenantId $env:AZURE_TENANT_ID -subscriptionId $env:AZURE_SUBSCRIPTION_ID
+        # Retrieve the Object ID securely
+        $objectId = az ad user show --id $env:AZURE_USER_EMAIL --query objectId --output tsv
+        
+        if (-not $objectId) {
+          Write-Error "Failed to retrieve Object ID for $env:AZURE_USER_EMAIL"
+          exit 1
+        }
+
+        echo "OBJID=$objectId" >> $GITHUB_ENV
+
+    - name: Deploy Bicep Template
+      shell: pwsh
       env:
         AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-
-
+        OBJID: ${{ env.OBJID }}
+      run: |
+        New-AzDeployment -Location "westeurope" -TemplateFile "./main.bicep" -TemplateParameterFile "./main.parameters.json" -Name "MyDeployment" -parameters objid=$env:OBJID

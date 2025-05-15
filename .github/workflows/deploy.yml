@@ -57,8 +57,13 @@ jobs:
       run: |
         New-AzDeployment -Location "westeurope" `
           -TemplateFile "./main.bicep" `
-          -TemplateParameterFile "./main.parameters.json" `
           -Name "MyDeployment" `
           -TemplateParameterObject @{
+              location = "westeurope"
+              rgName = "cka-lab"
+              key_vault_name = "cka-lab-kv1"
+              VNetName = "cka-lab-VNet"
+              SubNetName = "cka-lab-Subnet"
               objid = $env:OBJID
+              vmSize = "Standard_B2ms"
           }
